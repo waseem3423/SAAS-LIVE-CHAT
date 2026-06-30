@@ -136,8 +136,16 @@ export default function SettingsPage() {
     }
   };
 
+  const getWidgetUrl = () => {
+    if (typeof window === 'undefined') return 'http://localhost:8080';
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return 'http://localhost:8080';
+    }
+    return window.location.origin;
+  };
+
   const widgetCode = business
-    ? `<script src="http://localhost:8080/widget.js" data-business-id="${business.id}"></script>`
+    ? `<script src="${getWidgetUrl()}/widget.js" data-business-id="${business.id}"></script>`
     : '';
 
   const handleCopy = () => {
