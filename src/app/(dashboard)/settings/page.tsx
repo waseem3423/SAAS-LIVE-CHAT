@@ -144,8 +144,18 @@ export default function SettingsPage() {
     return window.location.origin;
   };
 
+  const getBackendUrl = () => {
+    const envUrl = process.env.NEXT_PUBLIC_API_URL;
+    if (envUrl) return envUrl;
+    if (typeof window === 'undefined') return 'http://localhost:8000/api/v1';
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return 'http://localhost:8000/api/v1';
+    }
+    return 'https://saas-live-chat-backend-database.up.railway.app/api/v1';
+  };
+
   const widgetCode = business
-    ? `<script src="${getWidgetUrl()}/widget.js" data-business-id="${business.id}"></script>`
+    ? `<script src="${getWidgetUrl()}/widget.js" data-business-id="${business.id}" data-backend-url="${getBackendUrl()}"></script>`
     : '';
 
   const handleCopy = () => {
