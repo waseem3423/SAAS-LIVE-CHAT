@@ -159,7 +159,7 @@ export default function ChatsPage() {
       let targetAlertMsg: Message | null = null;
       let targetAlertConv: Conversation | null = null;
 
-      convsData.forEach(conv => {
+      for (const conv of convsData) {
         if (conv.messages && conv.messages.length > 0) {
           const lastMsg = conv.messages[conv.messages.length - 1];
           if (lastMsg.sender_type === 'visitor' && lastMsg.id) {
@@ -178,7 +178,7 @@ export default function ChatsPage() {
             }
           }
         }
-      });
+      }
 
       if (shouldAlert && targetAlertMsg && targetAlertConv) {
         // If it is NOT the currently focused conversation OR the browser tab is hidden
